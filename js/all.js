@@ -110,7 +110,24 @@ new Vue({
   },
   methods: {
     openModal(isNew, item) {
-      $("#productModal").modal("show");
+      console.log(isNew);
+
+      switch (isNew) {
+        case "new":
+          this.tempProduct = {};
+          $("#productModal").modal("show");
+          break;
+        case "edit":
+          this.tempProduct = JSON.parse(JSON.stringify(item));
+          $("#productModal").modal("show");
+          break;
+        case "delete":
+          $("#delProductModal").modal("show");
+          break;
+        case "review":
+          // $("#reviewModal").modal("show");
+          break;
+      }
     },
     updateProduct() {},
     delProduct() {},
