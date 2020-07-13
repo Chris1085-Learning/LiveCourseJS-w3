@@ -49,7 +49,7 @@
                 {{ item.price }}
               </td>
               <td>
-                <span v-if="item.enabled" class="text-success">啟用</span>
+                <span v-if="item.is_enabled" class="text-success">啟用</span>
                 <span v-else>未啟用</span>
               </td>
               <td>
@@ -169,6 +169,7 @@
                         type="text"
                         class="form-control"
                         placeholder="請輸入產品描述"
+                        rows="4"
                       >
                       </textarea>
                     </div>
@@ -180,6 +181,7 @@
                         type="text"
                         class="form-control"
                         placeholder="請輸入說明內容"
+                        rows="4"
                       >
                       </textarea>
                     </div>

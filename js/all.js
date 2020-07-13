@@ -3,6 +3,7 @@ new Vue({
   data: {
     products: [
       {
+        id: "0",
         title: "Sony RX100 VII",
         category: "Sony RX-series,Discount,BC",
         content:
@@ -12,7 +13,7 @@ new Vue({
           "https://images.unsplash.com/photo-1471293413508-2cb95f2d2e9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1212&q=80",
           "https://images.unsplash.com/photo-1553456070-ab6e39f8b729?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
         ],
-        enabled: true,
+        is_enabled: true,
         origin_price: 37980,
         price: 35000,
         unit: "台",
@@ -34,6 +35,7 @@ new Vue({
         },
       },
       {
+        id: "1",
         title: "佳能 Canon EOS 6D MARKII",
         category: "Canon EOS-series,HotSale,DLSR",
         content:
@@ -42,7 +44,7 @@ new Vue({
         imageUrl: [
           "https://images.unsplash.com/photo-1497617226900-8e7fc1873e25?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
         ],
-        enabled: true,
+        is_enabled: true,
         origin_price: 49000,
         price: 45000,
         unit: "台",
@@ -68,6 +70,7 @@ new Vue({
         },
       },
       {
+        id: "2",
         title: "徠卡 Leica M10",
         category: "Leica,New",
         content:
@@ -76,7 +79,7 @@ new Vue({
           "https://images.unsplash.com/photo-1525584852662-9605341eb9c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
           "https://images.unsplash.com/photo-1521710153413-ea687d2ca2c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
         ],
-        enabled: false,
+        is_enabled: false,
         origin_price: 128800,
         price: 128800,
         unit: "台",
@@ -110,26 +113,56 @@ new Vue({
   },
   methods: {
     openModal(isNew, item) {
-      console.log(isNew);
-
       switch (isNew) {
         case "new":
           this.tempProduct = {};
           $("#productModal").modal("show");
           break;
         case "edit":
+          console.log(item);
           this.tempProduct = JSON.parse(JSON.stringify(item));
           $("#productModal").modal("show");
           break;
         case "delete":
+          this.tempProduct = JSON.parse(JSON.stringify(item));
           $("#delProductModal").modal("show");
           break;
         case "review":
-          // $("#reviewModal").modal("show");
+          this.tempProduct = JSON.parse(JSON.stringify(item));
+          $("#reviewModal").modal("show");
           break;
       }
     },
-    updateProduct() {},
-    delProduct() {},
+    updateProduct() {
+      const vm = this;
+      if (Object.entries(vm.tempProduct).length > 0) {
+        const id = new Date().getTime();
+        vm.tempProduct.id = id;
+        vm.products.push(vm.tempProduct);
+      } else {
+        const id = vm.tempProduct.id;
+        vm.products.forEach((product, i) => {
+          if (product.id === id) {
+            vm.$set(vm.products, i, vm.tempProduct);
+          }
+        });
+      }
+      // vm.tempProduct = {};
+
+      $("#productModal").modal("hide");
+    },
+    delProduct() {
+      const vm = this;
+      const id = vm.tempProduct.id;
+
+      vm.products.forEach((product, i) => {
+        if (product.id === id) {
+          vm.products.splice(i, 1);
+        }
+      });
+
+      vm.tempProduct = {};
+      $("#delProductModal").modal("hide");
+    },
   },
 });
