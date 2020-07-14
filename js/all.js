@@ -189,7 +189,17 @@ new Vue({
         }
       });
 
-      vm.tempProduct = {};
+      vm.tempProduct = {
+        options: {
+          comments: [
+            {
+              rate: "",
+              comment: "",
+              user: "",
+            },
+          ],
+        },
+      };
       $("#delProductModal").modal("hide");
     },
   },
