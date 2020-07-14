@@ -245,6 +245,46 @@
             </div>
           </div>
         </div>
+
+        <div
+          id="reviewProductModal"
+          class="modal fade"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content border-0">
+              <div class="modal-header bg-success text-white">
+                <h5 id="exampleModalLabel" class="modal-title">
+                  <span>產品評價</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <ul v-for="(comments,index) in tempProduct.options.comments" :key="index">
+                  <li>
+                    <div class="d-flex align-items-center">
+                      <span class="font-weight-bold mr-3">{{comments.user}}</span>
+                      <span class="material-icons rating"> star </span>
+                      <span class="mr-1">{{comments.rate}}</span>
+                    </div>
+                    <p span class="pt-2 comments text-secondary">評語: {{comments.comment}}</p>
+                    <hr v-if="index != tempProduct.options.comments.length - 1" />
+                  </li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                  關閉
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

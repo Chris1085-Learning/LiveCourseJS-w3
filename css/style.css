@@ -20,3 +20,11 @@ label {
 textarea {
   resize: none;
 }
+
+.material-icons {
+  color: rgb(255, 180, 0);
+}
+
+.comments {
+  line-height: 1.5;
+}

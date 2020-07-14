@@ -30,6 +30,7 @@ new Vue({
             {
               rate: 4.5,
               comment: "夠小台，該有的功能都有，錄影功能超讚der，youtuber必備款",
+              user: "入門級Youtuber小明",
             },
           ],
         },
@@ -61,10 +62,12 @@ new Vue({
             {
               rate: 5,
               comment: "DLSR入門款必備相機!!!! 沒用過就輸了",
+              user: "小菜鳥",
             },
             {
               rate: 5,
               comment: "這價格CP搭配活動好殺~~~~",
+              user: "CP王",
             },
           ],
         },
@@ -96,31 +99,40 @@ new Vue({
             {
               rate: 5,
               comment: "LEICA 信仰充值!! M10好看又好用!身為一個專業宅宅，一定要擁有一台",
+              user: "專業宅宅",
             },
             {
               rate: 5,
               comment: "這不是傳說中的相機界的LV嗎!!用起來94爽",
+              user: "土豪阿忠",
             },
             {
               rate: 5,
               comment: "搭配大三元，走到哪拍到哪，輕便、有型、潮到有妹子跟你搭訕~~",
+              user: "94潮男",
             },
           ],
         },
       },
     ],
-    tempProduct: {},
+    tempProduct: {
+      options: {
+        comments: {},
+      },
+    },
   },
   methods: {
     openModal(isNew, item) {
       switch (isNew) {
         case "new":
           this.tempProduct = {};
+          this.tempProduct.isNew = true;
           $("#productModal").modal("show");
           break;
         case "edit":
           console.log(item);
           this.tempProduct = JSON.parse(JSON.stringify(item));
+          this.tempProduct.isNew = false;
           $("#productModal").modal("show");
           break;
         case "delete":
@@ -129,13 +141,13 @@ new Vue({
           break;
         case "review":
           this.tempProduct = JSON.parse(JSON.stringify(item));
-          $("#reviewModal").modal("show");
+          $("#reviewProductModal").modal("show");
           break;
       }
     },
     updateProduct() {
       const vm = this;
-      if (Object.entries(vm.tempProduct).length > 0) {
+      if (vm.tempProduct.isNew) {
         const id = new Date().getTime();
         vm.tempProduct.id = id;
         vm.products.push(vm.tempProduct);
