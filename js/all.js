@@ -117,7 +117,13 @@ new Vue({
     ],
     tempProduct: {
       options: {
-        comments: {},
+        comments: [
+          {
+            rate: "",
+            comment: "",
+            user: "",
+          },
+        ],
       },
     },
   },
@@ -125,12 +131,22 @@ new Vue({
     openModal(isNew, item) {
       switch (isNew) {
         case "new":
-          this.tempProduct = {};
+          this.tempProduct = {
+            options: {
+              comments: [
+                {
+                  rate: "",
+                  comment: "",
+                  user: "",
+                },
+              ],
+            },
+          };
+
           this.tempProduct.isNew = true;
           $("#productModal").modal("show");
           break;
         case "edit":
-          console.log(item);
           this.tempProduct = JSON.parse(JSON.stringify(item));
           this.tempProduct.isNew = false;
           $("#productModal").modal("show");
